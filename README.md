@@ -60,11 +60,3 @@ Login bem-sucedido!
 5. Sair
 Escolha uma opção:
 ```
-
-## Melhorias Futuras
-
-- Salvar os dados em arquivos ou banco de dados.
-- Interface gráfica com Tkinter ou web com Flask.
-- Validações mais robustas (evitar agendamentos duplicados, verificar cliente existente, etc).
-
----
