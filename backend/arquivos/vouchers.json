@@ -1,0 +1,21 @@
+[
+    {
+        "id": 1,
+        "codigo": "PROMO10",
+        "descricao": "10% de desconto em qualquer corte.",
+        "validade": "2025-12-31"
+    },
+    {
+        "id": 2,
+        "codigo": "VIP20",
+        "descricao": "20% de desconto para clientes VIP.",
+        "validade": "2025-08-31"
+    },
+    {
+        "id": 3,
+        "codigo": "FIDELIDADE-OYQN9F",
+        "descricao": "Voucher fidelidade para cliente",
+        "validade": "2025-12-31",
+        "usuario": "cliente"
+    }
+]

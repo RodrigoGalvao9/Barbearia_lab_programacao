@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "usuario": "admin",
+    "senha": "admin123",
+    "nome": "Administrador",
+    "tipo": "admin"
+  },
+  {
+    "id": 2,
+    "usuario": "funcionario",
+    "senha": "func123",
+    "nome": "Funcionário",
+    "tipo": "funcionario"
+  },
+  {
+    "id": 3,
+    "usuario": "cliente",
+    "senha": "cliente123",
+    "nome": "Cliente Teste",
+    "tipo": "cliente"
+  }
+]

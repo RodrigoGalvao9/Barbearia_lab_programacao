@@ -1,0 +1,616 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    background: linear-gradient(120deg, #181c24 60%, #232a36 100%);
+    min-height: 100vh;
+    color: #e0e0e0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #181c24;
+    color: #fff;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.nav-logo {
+    font-size: 1.7rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #ffb300;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.2s;
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-links li a.active, .nav-links li a:hover {
+    color: #ffb300;
+    border-bottom: 2px solid #ffb300;
+}
+
+#btn-login {
+    background: linear-gradient(90deg, #ffb300 60%, #ff8800 100%);
+    color: #181c24;
+    border: none;
+    padding: 0.6rem 1.3rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.13);
+    transition: background 0.2s;
+}
+
+#btn-login:hover {
+    background: linear-gradient(90deg, #ff8800 60%, #ffb300 100%);
+}
+
+main {
+    max-width: 950px;
+    margin: 2.5rem auto 0 auto;
+    background: #232a36;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.19);
+    padding: 2.5rem 2rem 2rem 2rem;
+    min-height: 70vh;
+}
+
+h2 {
+    margin-top: 0;
+    color: #ffb300;
+    letter-spacing: 1px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.2rem;
+    background: #232a36;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.14);
+}
+
+thead {
+    background: #181c24;
+}
+
+td, th {
+    padding: 1rem 0.7rem;
+    border-bottom: 1px solid #333a4d;
+    text-align: left;
+    font-size: 1.05rem;
+    color: #e0e0e0;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:hover {
+    background: #232a36;
+    color: #ffb300;
+}
+
+.tela {
+    display: none;
+}
+
+.tela.active {
+    display: block;
+}
+
+.agendamento-item, .voucher-item {
+    background: #232a36;
+    margin-bottom: 0.7rem;
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.10);
+    font-size: 1.05rem;
+    color: #e0e0e0;
+    border-left: 4px solid #ffb300;
+}
+
+#btn-novo-agendamento {
+    margin-top: 1.2rem;
+    background: #ffb300;
+    color: #181c24;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background 0.2s;
+}
+
+#btn-novo-agendamento:hover {
+    background: #ff8800;
+    color: #fff;
+}
+
+.form-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    background: #181c24;
+    padding: 2rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.13);
+    max-width: 350px;
+    margin: 1.5rem auto 0 auto;
+}
+.form-box label {
+    font-weight: 500;
+    color: #ffb300;
+}
+.form-box input {
+    padding: 0.5rem;
+    border: 1px solid #ffb300;
+    border-radius: 4px;
+    font-size: 1rem;
+    background: #232a36;
+    color: #e0e0e0;
+}
+.form-box button[type="submit"] {
+    background: #ffb300;
+    color: #181c24;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 0.7rem;
+    transition: background 0.2s;
+}
+.form-box button[type="submit"]:hover {
+    background: #ff8800;
+    color: #fff;
+}
+.form-box .erro-msg {
+    color: #ff5252;
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+}
+
+/* Estilização do select de forma de pagamento */
+.form-box select {
+    padding: 0.5rem;
+    border: 1px solid #ffb300;
+    border-radius: 4px;
+    font-size: 1rem;
+    background: #232a36;
+    color: #e0e0e0;
+    margin-bottom: 0.2rem;
+    outline: none;
+    transition: border 0.2s;
+}
+.form-box select:focus {
+    border: 1.5px solid #ffb300;
+    background: #181c24;
+}
+.form-box select option {
+    background: #232a36;
+    color: #e0e0e0;
+}
+
+.modal-box {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(24,28,36,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+.modal-box .form-box {
+    margin: 0;
+    min-width: 320px;
+}
+.modal-box button[type="button"] {
+    background: #232a36;
+    color: #e0e0e0;
+    border: 1px solid #ffb300;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+}
+.modal-box button[type="button"]:hover {
+    background: #ffb300;
+    color: #181c24;
+}
+
+.popup-mensagem {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(24,28,36,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+}
+.popup-conteudo {
+    background: #232a36;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.23);
+    padding: 2rem 2.5rem;
+    min-width: 260px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    color: #e0e0e0;
+}
+#popup-fechar {
+    background: #ffb300;
+    color: #181c24;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    align-self: center;
+    transition: background 0.2s;
+}
+#popup-fechar:hover {
+    background: #ff8800;
+    color: #fff;
+}
+
+.vouchers-info {
+    color: #bdbdbd;
+    font-size: 1.05rem;
+    margin-bottom: 1.2rem;
+    background: #181c24;
+    padding: 0.7rem 1rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.10);
+}
+
+.footer {
+    width: 100%;
+    background: #181c24;
+    color: #bdbdbd;
+    text-align: center;
+    padding: 1.2rem 0 1rem 0;
+    font-size: 1rem;
+    margin-top: 2rem;
+    letter-spacing: 1px;
+    border-top: 1px solid #232a36;
+}
+
+.senha-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.senha-container input[type="password"],
+.senha-container input[type="text"] {
+    flex: 1;
+}
+.olho-senha {
+    background: none;
+    border: none;
+    color: #ffb300;
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 0 0.3rem;
+    transition: color 0.2s;
+}
+.olho-senha:hover {
+    color: #ff8800;
+}
+
+.usuario-logado {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    background: #232a36;
+    border-radius: 6px;
+    padding: 0.3rem 0.8rem;
+    color: #ffb300;
+    font-weight: 500;
+    font-size: 1.05rem;
+}
+#usuario-nome {
+    margin-right: 0.5rem;
+    color: #ffb300;
+    font-weight: bold;
+}
+#btn-perfil, #btn-logout {
+    background: none;
+    border: none;
+    color: #ffb300;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.2rem 0.7rem;
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+}
+#btn-perfil:hover, #btn-logout:hover {
+    background: #ffb300;
+    color: #232a36;
+}
+
+.perfil-vouchers-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: #ffb300;
+    font-size: 1rem;
+}
+.perfil-vouchers-lista li {
+    background: #232a36;
+    margin-bottom: 0.4rem;
+    padding: 0.5rem 0.7rem;
+    border-radius: 4px;
+    color: #e0e0e0;
+    border-left: 3px solid #ffb300;
+    font-size: 0.98rem;
+}
+
+.btn-editar-corte, .btn-remover-corte {
+    background: #232a36;
+    color: #ffb300;
+    border: 1px solid #ffb300;
+    border-radius: 4px;
+    padding: 0.3rem 0.8rem;
+    margin-right: 0.4rem;
+    font-size: 0.98rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+.btn-editar-corte:hover {
+    background: #ffb300;
+    color: #232a36;
+}
+.btn-remover-corte:hover {
+    background: #ff5252;
+    color: #fff;
+    border-color: #ff5252;
+}
+
+/* Botões admin de agendamento com espaçamento */
+.btn-editar-agendamento, .btn-remover-agendamento {
+    background: #232a36;
+    color: #ffb300;
+    border: 1px solid #ffb300;
+    border-radius: 4px;
+    padding: 0.3rem 0.8rem;
+    margin-right: 0.6rem;
+    margin-bottom: 0.2rem;
+    font-size: 0.98rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    display: inline-block;
+}
+.btn-editar-agendamento:hover {
+    background: #ffb300;
+    color: #232a36;
+}
+.btn-remover-agendamento {
+    margin-right: 0;
+    margin-left: 0.2rem;
+    background: #232a36;
+    color: #ff5252;
+    border: 1px solid #ff5252;
+}
+.btn-remover-agendamento:hover {
+    background: #ff5252;
+    color: #fff;
+    border-color: #ff5252;
+}
+
+.btn-editar-cliente, .btn-remover-cliente,
+.btn-editar-agendamento, .btn-remover-agendamento,
+.btn-editar-voucher, .btn-remover-voucher {
+    background: #232a36;
+    color: #ffb300;
+    border: 1px solid #ffb300;
+    border-radius: 4px;
+    padding: 0.3rem 0.8rem;
+    margin-right: 0.4rem;
+    font-size: 0.98rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+.btn-editar-cliente:hover, .btn-editar-agendamento:hover, .btn-editar-voucher:hover {
+    background: #ffb300;
+    color: #232a36;
+}
+.btn-remover-cliente:hover, .btn-remover-agendamento:hover, .btn-remover-voucher:hover {
+    background: #ff5252;
+    color: #fff;
+    border-color: #ff5252;
+}
+
+/* Modal de confirmação de remoção customizado */
+#modal-remover .form-box {
+    min-width: 340px;
+    background: #232a36;
+    border: 2px solid #ff5252;
+    box-shadow: 0 4px 24px rgba(255,82,82,0.18);
+    padding: 2.2rem 2rem 1.7rem 2rem;
+    text-align: center;
+    position: relative;
+}
+#modal-remover h3 {
+    color: #ff5252;
+    margin-bottom: 0.7rem;
+    font-size: 1.35rem;
+    letter-spacing: 1px;
+}
+#modal-remover p {
+    color: #e0e0e0;
+    font-size: 1.08rem;
+    margin-bottom: 1.5rem;
+}
+#modal-remover #confirmar-remover {
+    background: #ff5252;
+    color: #fff;
+    border: none;
+    padding: 0.7rem 1.6rem;
+    border-radius: 4px;
+    font-size: 1.08rem;
+    font-weight: bold;
+    margin-right: 0.7rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(255,82,82,0.13);
+    transition: background 0.2s, color 0.2s;
+}
+#modal-remover #confirmar-remover:hover {
+    background: #c62828;
+    color: #fff;
+}
+#modal-remover #cancelar-remover {
+    background: #232a36;
+    color: #ffb300;
+    border: 1px solid #ffb300;
+    padding: 0.7rem 1.6rem;
+    border-radius: 4px;
+    font-size: 1.08rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+#modal-remover #cancelar-remover:hover {
+    background: #ffb300;
+    color: #232a36;
+}
+
+#modal-pagamento .form-box {
+    min-width: 340px;
+    background: #232a36;
+    border: 2px solid #ffb300;
+    box-shadow: 0 4px 24px rgba(255,179,0,0.18);
+    padding: 2.2rem 2rem 1.7rem 2rem;
+    text-align: center;
+    position: relative;
+    border-radius: 12px;
+    animation: modalShow 0.25s cubic-bezier(.4,1.4,.6,1) 1;
+}
+#modal-pagamento h3 {
+    color: #ffb300;
+    margin-bottom: 1.1rem;
+    font-size: 1.35rem;
+    letter-spacing: 1px;
+}
+#resumo-pagamento {
+    margin-bottom: 1.2rem;
+    color: #232a36;
+    font-size: 1.13rem;
+    background: linear-gradient(90deg, #ffe0a3 60%, #fff3d1 100%);
+    padding: 1.2rem 1rem 1.2rem 1rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 6px rgba(255,179,0,0.10);
+    text-align: left;
+    font-weight: 500;
+}
+#modal-pagamento button {
+    background: linear-gradient(90deg, #ffb300 60%, #ff8800 100%);
+    color: #232a36;
+    border: none;
+    padding: 0.7rem 1.7rem;
+    border-radius: 5px;
+    font-size: 1.08rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1.1rem;
+    box-shadow: 0 2px 8px rgba(255,179,0,0.13);
+    transition: background 0.2s, color 0.2s;
+}
+#modal-pagamento button:hover {
+    background: #232a36;
+    color: #ffb300;
+    border: 1px solid #ffb300;
+}
+@keyframes modalShow {
+    from { transform: scale(0.95) translateY(30px); opacity: 0; }
+    to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+@media (max-width: 700px) {
+    main {
+        padding: 1rem 0.3rem;
+    }
+    .navbar {
+        flex-direction: column;
+        gap: 0.7rem;
+        padding: 1rem 0.5rem;
+    }
+    .nav-links {
+        gap: 1rem;
+    }
+    table, thead, tbody, th, td, tr {
+        font-size: 0.95rem;
+    }
+}
+
+/* Estilo para o texto e link de registro na tela de login */
+#form-login p {
+    margin-top: 1.2rem;
+    color: #bdbdbd;
+    font-size: 1.01rem;
+    text-align: center;
+}
+#link-para-registro {
+    color: #ffb300;
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 0.2rem;
+    transition: color 0.2s, text-decoration 0.2s;
+}
+#link-para-registro:hover {
+    color: #ff8800;
+    text-decoration: underline;
+}
+
+/* Estilo para o texto e link de login na tela de registro */
+#form-registro p {
+    margin-top: 1.2rem;
+    color: #bdbdbd;
+    font-size: 1.01rem;
+    text-align: center;
+}
+#link-para-login {
+    color: #ffb300;
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 0.2rem;
+    transition: color 0.2s, text-decoration 0.2s;
+}
+#link-para-login:hover {
+    color: #ff8800;
+    text-decoration: underline;
+}
+
+#modal-perfil .form-box, #modal-corte .form-box, #modal-pagamento .form-box {
+    min-width: 320px;
+}
