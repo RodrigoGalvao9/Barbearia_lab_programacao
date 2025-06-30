@@ -1,56 +1,102 @@
 from flask import Blueprint, jsonify, request, session
 import os
-import json
+from .utils import (
+    ler_arquivo_json, salvar_arquivo_json, validar_dados_obrigatorios,
+    retornar_erro, retornar_sucesso, retornar_dados, requer_admin,
+    gerar_proximo_id, buscar_item_por_id, remover_item_por_id, 
+    validar_email, log_acao
+)
 
 clientes_bp = Blueprint('clientes', __name__)
 CAMINHO_ARQUIVO = os.path.join(os.path.dirname(__file__), 'arquivos', 'clientes.json')
 
 def ler_clientes():
-    if not os.path.exists(CAMINHO_ARQUIVO):
-        return []
-    with open(CAMINHO_ARQUIVO, 'r', encoding='utf-8') as arquivo:
-        return json.load(arquivo)
+    return ler_arquivo_json(CAMINHO_ARQUIVO)
 
 def salvar_clientes(clientes):
-    with open(CAMINHO_ARQUIVO, 'w', encoding='utf-8') as arquivo:
-        json.dump(clientes, arquivo, ensure_ascii=False, indent=4)
+    return salvar_arquivo_json(CAMINHO_ARQUIVO, clientes)
 
 @clientes_bp.route('/', methods=['GET'])
 def listar_clientes():
     clientes = ler_clientes()
-    return jsonify(clientes)
+    return retornar_dados(clientes)
 
 @clientes_bp.route('/', methods=['POST'])
+@requer_admin
 def adicionar_cliente():
-    if session.get('tipo') != 'adm':
-        return jsonify({'erro': 'Permissão negada. Apenas administradores podem adicionar clientes.'}), 403
+    dados, erro = validar_dados_obrigatorios(['nome'])
+    if erro:
+        return erro
+    
+    nome = dados.get('nome')
+    telefone = dados.get('telefone')
+    email = dados.get('email')
+    
+    # Validação de email se fornecido
+    if email and not validar_email(email):
+        return retornar_erro('Formato de email inválido', 400)
+    
     clientes = ler_clientes()
-    novo_cliente = request.json
-    novo_cliente['id'] = len(clientes) + 1 
+    
+    # Verifica se cliente já existe (por nome e telefone)
+    if telefone and any(c.get('telefone') == telefone for c in clientes):
+        return retornar_erro('Cliente com este telefone já existe', 409)
+    
+    novo_cliente = {
+        'id': gerar_proximo_id(clientes),
+        'nome': nome,
+        'telefone': telefone,
+        'email': email
+    }
+    
     clientes.append(novo_cliente)
-    salvar_clientes(clientes)
-    return jsonify(novo_cliente), 201
+    
+    if not salvar_clientes(clientes):
+        return retornar_erro('Erro ao salvar cliente', 500)
+    
+    log_acao('Cliente adicionado', session.get('usuario'), {'nome': nome})
+    return retornar_sucesso('Cliente adicionado com sucesso', novo_cliente, 201)
 
 @clientes_bp.route('/<int:id_cliente>', methods=['PUT'])
+@requer_admin
 def editar_cliente(id_cliente):
-    if session.get('tipo') != 'adm':
-        return jsonify({'erro': 'Permissão negada. Apenas administradores podem editar clientes.'}), 403
+    dados, erro = validar_dados_obrigatorios([])
+    if erro:
+        return erro
+    
+    # Validação de email se fornecido
+    email = dados.get('email')
+    if email and not validar_email(email):
+        return retornar_erro('Formato de email inválido', 400)
+    
     clientes = ler_clientes()
-    dados = request.json
-    for cliente in clientes:
-        if cliente['id'] == id_cliente:
-            cliente.update(dados)
-            salvar_clientes(clientes)
-            return jsonify(cliente)
-    return jsonify({'erro': 'Cliente não encontrado'}), 404
+    cliente = buscar_item_por_id(clientes, id_cliente)
+    
+    if not cliente:
+        return retornar_erro('Cliente não encontrado', 404)
+    
+    # Atualiza apenas os campos fornecidos
+    campos_permitidos = ['nome', 'telefone', 'email']
+    for campo in campos_permitidos:
+        if campo in dados:
+            cliente[campo] = dados[campo]
+    
+    if not salvar_clientes(clientes):
+        return retornar_erro('Erro ao salvar alterações', 500)
+    
+    log_acao('Cliente editado', session.get('usuario'), {'id': id_cliente})
+    return retornar_sucesso('Cliente editado com sucesso', cliente)
 
 @clientes_bp.route('/<int:id_cliente>', methods=['DELETE'])
+@requer_admin
 def remover_cliente(id_cliente):
-    if session.get('tipo') != 'adm':
-        return jsonify({'erro': 'Permissão negada. Apenas administradores podem remover clientes.'}), 403
     clientes = ler_clientes()
-    clientes_novos = [c for c in clientes if c['id'] != id_cliente]
-    if len(clientes_novos) == len(clientes):
-        return jsonify({'erro': 'Cliente não encontrado'}), 404
-    salvar_clientes(clientes_novos)
-    return jsonify({'mensagem': 'Cliente removido com sucesso'})
+    
+    if not remover_item_por_id(clientes, id_cliente):
+        return retornar_erro('Cliente não encontrado', 404)
+    
+    if not salvar_clientes(clientes):
+        return retornar_erro('Erro ao remover cliente', 500)
+    
+    log_acao('Cliente removido', session.get('usuario'), {'id': id_cliente})
+    return retornar_sucesso('Cliente removido com sucesso')

@@ -22,9 +22,8 @@
             <button id="btn-logout">Sair</button>
         </div>
     </nav>
-    <main>
-        <section id="tela-login" class="tela" style="display:none">
-            <h2>Entrar</h2>
+    <main>        <section id="tela-login" class="tela" style="display:none">
+            <h2 class="titulo-centralizado">🔐 Entrar</h2>
             <form id="form-login" class="form-box">
                 <label for="login-usuario">Usuário</label>
                 <input type="text" id="login-usuario" required>
@@ -37,9 +36,8 @@
                 <p>Não tem conta? <a href="#" id="link-para-registro">Registrar</a></p>
                 <div id="login-erro" class="erro-msg"></div>
             </form>
-        </section>
-        <section id="tela-registro" class="tela" style="display:none">
-            <h2>Registrar</h2>
+        </section>        <section id="tela-registro" class="tela" style="display:none">
+            <h2 class="titulo-centralizado">📝 Registrar</h2>
             <form id="form-registro" class="form-box">
                 <label for="registro-usuario">Usuário</label>
                 <input type="text" id="registro-usuario" required>
@@ -59,38 +57,44 @@
                 <p>Já tem conta? <a href="#" id="link-para-login">Entrar</a></p>
                 <div id="registro-erro" class="erro-msg"></div>
             </form>
-        </section>
-        <section id="tela-cortes" class="tela">
-            <h2>Cortes Disponíveis</h2>
-            <table id="tabela-cortes">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Descrição</th>
-                        <th>Preço</th>
-                        <th id="th-acoes-cortes" style="display:none">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Linhas de cortes aqui -->
-                </tbody>
-            </table>
-        </section>
-        <section id="tela-agendamentos" class="tela" style="display:none">
-            <h2>Agendamentos</h2>
+        </section>        <section id="tela-cortes" class="tela">
+            <h2 class="titulo-centralizado">✂️ Cortes Disponíveis</h2>
+            <div id="cortes-lista">
+                <!-- Tabela/cards de cortes serão carregados aqui -->
+            </div>
+        </section>        <section id="tela-agendamentos" class="tela" style="display:none">
+            <h2 class="titulo-centralizado">📅 Agendamentos</h2>
+            
+            <!-- Filtro de Dias -->
+            <div id="filtro-dias" class="filtro-container">
+                <label for="select-dia-filtro">📅 Filtrar por dia:</label>
+                <select id="select-dia-filtro" class="select-filtro">
+                    <option value="hoje">🌟 Hoje</option>
+                    <option value="amanha">⏰ Amanhã</option>
+                    <option value="semana">📅 Esta Semana</option>
+                    <option value="mes">📆 Este Mês</option>
+                    <option value="todos">🗂️ Todos</option>
+                </select>
+                <button id="btn-aplicar-filtro" class="btn-filtro">Aplicar Filtro</button>
+            </div>
+            
             <div id="agendamentos-lista"></div>
-            <button id="btn-novo-agendamento">Novo Agendamento</button>
-            <div id="modal-agendamento" class="modal-box" style="display:none">
+            <button id="btn-novo-agendamento">Novo Agendamento</button><div id="modal-agendamento" class="modal-box" style="display:none">
                 <form id="form-agendamento" class="form-box">
                     <h3>Novo Agendamento</h3>
                     <label for="agendamento-nome">Nome do Cliente</label>
                     <input type="text" id="agendamento-nome" required>
+                    
+                    <label for="agendamento-corte">Tipo de Corte</label>
+                    <select id="agendamento-corte" required>
+                        <option value="">Selecione o corte</option>
+                    </select>
+                    
                     <label for="agendamento-data">Data</label>
                     <input type="date" id="agendamento-data" required>
                     <label for="agendamento-horario">Horário</label>
                     <input type="time" id="agendamento-horario" required>
-                    <label for="agendamento-voucher">Voucher (opcional)</label>
-                    <input type="text" id="agendamento-voucher" placeholder="Código do voucher">
+                    
                     <label for="agendamento-pagamento">Forma de Pagamento</label>
                     <select id="agendamento-pagamento" required>
                         <option value="">Selecione</option>
@@ -98,32 +102,39 @@
                         <option value="cartao">Cartão</option>
                         <option value="pix">Pix</option>
                     </select>
+                    
+                    <div id="voucher-section">
+                        <label for="agendamento-voucher">Voucher (opcional)</label>
+                        <input type="text" id="agendamento-voucher" placeholder="Código do voucher">
+                        <button type="button" id="btn-aplicar-voucher">Aplicar Voucher</button>
+                    </div>
+                    
+                    <div id="resumo-valores" style="margin: 15px 0; padding: 10px; border: 1px solid #ddd; display: none;">
+                        <h4>Resumo do Agendamento</h4>
+                        <div id="valor-corte">Valor do corte: R$ 0,00</div>
+                        <div id="desconto-voucher" style="color: green; display: none;">Desconto: -R$ 0,00</div>
+                        <div id="valor-final" style="font-weight: bold; font-size: 1.1em;">Total: R$ 0,00</div>
+                    </div>
+                    
                     <button type="submit">Agendar</button>
                     <button type="button" id="fechar-modal-agendamento">Cancelar</button>
                     <div id="agendamento-erro" class="erro-msg"></div>
                 </form>
+            </div></section>        <section id="tela-vouchers" class="tela" style="display:none">
+            <h2 class="titulo-centralizado">🎫 Vouchers</h2>
+            <p class="vouchers-info">Aqui você encontra seus vouchers de desconto! A cada 5 agendamentos, você ganha um voucher fidelidade exclusivo. Clique em "Usar Voucher" para ativar um voucher disponível. Vouchers vencidos ou já utilizados aparecem marcados.</p>
+            <div id="vouchers-actions" style="margin-bottom: 20px;">
+                <button id="btn-adicionar-voucher" class="btn-editar-corte" style="display:none">Adicionar Voucher</button>
             </div>
-        </section>
-        <section id="tela-vouchers" class="tela" style="display:none">
-            <h2>Vouchers</h2>
-            <p class="vouchers-info">Aqui você encontra seus vouchers de desconto! A cada 5 agendamentos, você ganha um voucher fidelidade exclusivo. Use o código no momento do pagamento para garantir seu desconto.</p>
             <div id="vouchers-lista"></div>
-        </section>
-        <section id="tela-clientes" class="tela" style="display:none">
-            <h2>Clientes</h2>
-            <table id="tabela-clientes">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Telefone</th>
-                        <th>Email</th>
-                        <th id="th-acoes-clientes" style="display:none">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Linhas de clientes aqui -->
-                </tbody>
-            </table>
+        </section>        <section id="tela-clientes" class="tela" style="display:none">
+            <h2 class="titulo-centralizado">👥 Clientes</h2>
+            <div id="clientes-actions" style="margin-bottom: 20px;">
+                <button id="btn-adicionar-cliente" class="btn-editar-corte" style="display:none">Adicionar Cliente</button>
+            </div>
+            <div id="clientes-lista">
+                <!-- Tabela/cards de clientes serão carregados aqui -->
+            </div>
         </section>
     </main>
     <footer class="footer">
@@ -166,12 +177,13 @@
                 <button type="button" id="fechar-modal-corte">Cancelar</button>
                 <div id="corte-erro" class="erro-msg"></div>
             </form>
-        </div>
-        <div id="modal-pagamento" class="modal-box" style="display:none">
-            <div class="form-box">
-                <h3>Resumo do Agendamento</h3>
-                <div id="resumo-pagamento"></div>
-                <button id="fechar-modal-pagamento">Fechar</button>
+        </div>        <div id="modal-pagamento" class="modal-box" style="display:none">
+            <div class="form-box" style="max-width: 500px;">
+                <h3>🎯 Comprovante de Agendamento</h3>
+                <div id="resumo-pagamento" style="text-align: left; margin: 20px 0;"></div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <button id="fechar-modal-pagamento" style="background: #2196F3; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Fechar</button>
+                </div>
             </div>
         </div>
         <!-- Modal Cliente -->
@@ -212,8 +224,7 @@
             <button type="button" id="fechar-modal-editar-agendamento">Cancelar</button>
             <div id="editar-agendamento-erro" class="erro-msg"></div>
         </form>
-    </div>
-    <!-- Modal Voucher -->
+    </div>    <!-- Modal Voucher -->
     <div id="modal-voucher" class="modal-box" style="display:none">
         <form id="form-voucher" class="form-box">
             <h3 id="titulo-modal-voucher">Adicionar Voucher</h3>
@@ -223,6 +234,10 @@
             <input type="text" id="voucher-descricao" required>
             <label for="voucher-desconto">Desconto (%)</label>
             <input type="number" id="voucher-desconto" min="1" max="100" required>
+            <label for="voucher-validade">Validade</label>
+            <input type="date" id="voucher-validade" required>
+            <label for="voucher-usuario">Usuário (deixe vazio para qualquer usuário)</label>
+            <input type="text" id="voucher-usuario" placeholder="Nome do usuário">
             <button type="submit">Salvar</button>
             <button type="button" id="fechar-modal-voucher">Cancelar</button>
             <div id="voucher-erro" class="erro-msg"></div>
@@ -235,8 +250,7 @@
             <p id="texto-modal-remover">Tem certeza que deseja remover este item?</p>
             <button id="confirmar-remover">Remover</button>
             <button id="cancelar-remover">Cancelar</button>
-        </div>
-    </div>
-    <script src="app.js"></script>
+        </div>    </div>
+    <!-- Scripts Modularizados -->    <script type="module" src="js/main.js"></script>
 </body>
 </html>

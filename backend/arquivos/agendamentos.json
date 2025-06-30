@@ -10,5 +10,14 @@
         "nome_cliente": "Maria Oliveira",
         "data": "2025-06-26",
         "horario": "10:30"
+    },
+    {
+        "id": 3,
+        "nome_cliente": "Pedro",
+        "data": "2324-12-24",
+        "horario": "03:04",
+        "usuario": "cliente",
+        "voucher": "FIDELIDADE-OYQN9F",
+        "pagamento": "pix"
     }
 ]
