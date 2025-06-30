@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "nome": "Moicano",
+        "descricao": "Corte moderno com laterais raspadas e topo alto.",
+        "preco": 35.0
+    },
+    {
+        "id": 2,
+        "nome": "Topete",
+        "descricao": "Clássico com volume na frente e acabamento lateral.",
+        "preco": 30.0
+    },
+    {
+        "id": 3,
+        "nome": "Rastafari",
+        "descricao": "Dreadlocks estilizados, manutenção e modelagem.",
+        "preco": 50.0
+    },
+    {
+        "id": 4,
+        "nome": "Degradê",
+        "descricao": "Corte com transição suave nas laterais.",
+        "preco": 32.0
+    },
+    {
+        "id": 5,
+        "nome": "Social",
+        "descricao": "Corte tradicional, elegante e prático.",
+        "preco": 29.0
+    }
+]
