@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "nome": "João Silva",
+    "telefone": "11999999999",
+    "email": "joao@email.com"
+  },
+  {
+    "id": 2,
+    "nome": "Maria Oliveira",
+    "telefone": "11988888888",
+    "email": "maria@email.com"
+  },
+  {
+    "id": 3,
+    "nome": "Carlos Souza",
+    "telefone": "11977777777",
+    "email": "carlos@email.com"
+  }
+]

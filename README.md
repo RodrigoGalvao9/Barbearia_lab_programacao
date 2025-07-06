@@ -1,4 +1,3 @@
-
 # 🪒 Sistema de Barbearia
 
 Sistema completo de gerenciamento para barbearias desenvolvido em Python com interface gráfica Tkinter.

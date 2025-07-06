@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "nome_cliente": "João Silva",
+        "data": "2025-06-25",
+        "horario": "14:00"
+    },
+    {
+        "id": 2,
+        "nome_cliente": "Maria Oliveira",
+        "data": "2025-06-26",
+        "horario": "10:30"
+    },
+    {
+        "id": 3,
+        "nome_cliente": "Pedro",
+        "data": "2324-12-24",
+        "horario": "03:04",
+        "usuario": "cliente",
+        "voucher": "FIDELIDADE-OYQN9F",
+        "pagamento": "pix"
+    }
+]
