@@ -1,62 +1,113 @@
 
-# Sistema de Gerenciamento de Barbearia
+# 🪒 Sistema de Barbearia
 
-Este é um sistema simples de linha de comando para gerenciamento de uma barbearia. Com ele, é possível realizar login, cadastrar clientes, registrar cortes, agendar horários e listar clientes.
+Sistema completo de gerenciamento para barbearias desenvolvido em Python com interface gráfica Tkinter.
 
-## Funcionalidades
+## 📋 Funcionalidades
 
-- **Login de Usuário**
-  - Login básico com verificação de nome de usuário e senha.
+- **👥 Gestão de Clientes**: Cadastro completo com dados pessoais
+- **✂️ Registro de Cortes**: Controle de serviços realizados com preços
+- **📅 Agendamentos**: Sistema de marcação de horários
+- **📊 Relatórios**: Estatísticas e resumos do negócio
+- **🔍 Busca**: Filtros em tempo real em todas as listas
+- **💾 Persistência**: Dados salvos em arquivos JSON
 
-- **Cadastro de Cliente**
-  - Permite adicionar novos clientes com nome e telefone.
 
-- **Registro de Corte**
-  - Registra o tipo de corte feito em um cliente.
+## 📁 Estrutura do Projeto
 
-- **Agendamento**
-  - Agenda data e hora para o atendimento de um cliente.
+```
+Barbearia_lab_programacao/
+├── models/
+│   ├── __init__.py
+│   └── models.py          # Classes de dados (Cliente, Corte, Agendamento)
+├── utils/
+│   ├── __init__.py
+│   └── validations.py     # Validações e formatações
+├── gui/
+│   ├── __init__.py
+│   └── cadastros.py       # Janelas de cadastro
+├── barbearia.py           # Aplicação principal
+├── usuarios.json          # Dados de usuários
+├── clientes.json          # Dados de clientes
+├── cortes.json           # Histórico de cortes
+└── agendamentos.json     # Agendamentos
+```
 
-- **Listagem de Clientes**
-  - Exibe todos os clientes cadastrados com seus telefones.
+## 📊 Dados de Exemplo Incluídos
 
-## Como Executar
+O sistema já vem com dados de exemplo carregados:
+- **8 clientes** cadastrados
+- **7 cortes** realizados
+- **8 agendamentos** futuros
+- **3 usuários** do sistema
 
-1. Certifique-se de ter o Python instalado (versão 3.6 ou superior).
-2. Salve o código em um arquivo chamado `barbearia.py`.
-3. Execute o programa no terminal:
+## 🛠️ Tecnologias
+
+- **Python 3.13**
+- **Tkinter** (Interface gráfica)
+- **JSON** (Persistência de dados)
+- **Modularização** (Organização do código)
+
+## � Requisitos do Sistema
+
+- **Python 3.6+** instalado
+- **Bibliotecas**: tkinter (já incluída no Python)
+
+## 🎮 Como Executar
+
+1. Clone ou baixe o projeto
+2. Navegue até a pasta do projeto
+3. Execute o comando:
 
 ```bash
 python barbearia.py
 ```
 
-4. Faça login com o seguinte usuário:
+4. Faça login com um dos usuários disponíveis
 
-```
-Usuário: admin
-Senha: 1234
-```
+## 🔐 Usuários de Acesso
 
-## Estrutura de Dados
+| Usuário | Senha | Perfil |
+|---------|-------|--------|
+| admin | 1234 | Administrador |
+| rodrigo | senha123 | Operador |
+| maria | barbearia2025 | Operador |
 
-- `usuarios`: dicionário contendo usuários e senhas.
-- `clientes`: lista de dicionários com nome e telefone dos clientes.
-- `cortes`: lista de dicionários com informações sobre os cortes.
-- `agendamentos`: lista de dicionários com data e hora agendada.
+## 💡 Funcionalidades Principais
 
-## Exemplo de Uso
+### 👥 Gestão de Clientes
+- Cadastro com dados completos (nome, telefone, email, endereço, data nascimento)
+- Busca e filtros em tempo real
+- Validação de dados (telefone, email, etc.)
 
-```plaintext
-=== Login ===
-Usuário: admin
-Senha: 1234
-Login bem-sucedido!
+### ✂️ Controle de Cortes
+- Registro de serviços realizados
+- Controle de preços e barbeiros
+- Histórico completo com observações
 
-=== MENU ===
-1. Cadastrar cliente
-2. Registrar corte
-3. Agendar horário
-4. Listar clientes
-5. Sair
-Escolha uma opção:
-```
+### 📅 Sistema de Agendamentos
+- Marcação de horários futuros
+- Controle de status (Agendado, Confirmado, Realizado, Cancelado)
+- Vinculação com clientes e barbeiros
+
+### 📊 Relatórios e Estatísticas
+- Total de clientes cadastrados
+- Quantidade de cortes realizados
+- Receita total calculada automaticamente
+- Agendamentos pendentes
+
+## 🎨 Interface
+
+- **Design moderno** com cores profissionais
+- **Navegação por abas** organizada
+- **Busca em tempo real** em todas as seções
+- **Validações visuais** com mensagens claras
+- **Formulários intuitivos** para cadastros
+
+## 📝 Razão
+
+Desenvolvido para laboratório de programação.
+
+## 📄 Licença
+
+Este projeto está licenciado sob a MIT License.

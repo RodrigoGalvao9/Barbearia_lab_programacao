@@ -1,0 +1,58 @@
+[
+  {
+    "nome": "João Silva",
+    "telefone": "(11) 99999-1234",
+    "email": "joao.silva@email.com",
+    "endereco": "Rua das Flores, 123 - Centro",
+    "data_nascimento": "15/05/1985"
+  },
+  {
+    "nome": "Maria Santos",
+    "telefone": "(11) 88888-5678",
+    "email": "maria.santos@email.com",
+    "endereco": "Av. Principal, 456 - Jardim América",
+    "data_nascimento": "22/08/1990"
+  },
+  {
+    "nome": "Pedro Oliveira",
+    "telefone": "(11) 77777-9012",
+    "email": "pedro.oliveira@email.com",
+    "endereco": "Rua do Centro, 789 - Vila Nova",
+    "data_nascimento": "10/12/1988"
+  },
+  {
+    "nome": "Ana Costa",
+    "telefone": "(11) 66666-3456",
+    "email": "ana.costa@email.com",
+    "endereco": "Rua Nova, 321 - Bela Vista",
+    "data_nascimento": "03/03/1992"
+  },
+  {
+    "nome": "Carlos Pereira",
+    "telefone": "(11) 55555-7890",
+    "email": "carlos.pereira@email.com",
+    "endereco": "Av. Liberdade, 654 - Centro",
+    "data_nascimento": "18/09/1987"
+  },
+  {
+    "nome": "Fernanda Lima",
+    "telefone": "(11) 44444-2468",
+    "email": "fernanda.lima@email.com",
+    "endereco": "Rua das Palmeiras, 987 - Jardim Europa",
+    "data_nascimento": "28/11/1993"
+  },
+  {
+    "nome": "Roberto Machado",
+    "telefone": "(11) 33333-1357",
+    "email": "roberto.machado@email.com",
+    "endereco": "Av. Brasil, 159 - Centro",
+    "data_nascimento": "07/04/1982"
+  },
+  {
+    "nome": "Luciana Torres",
+    "telefone": "(11) 22222-8642",
+    "email": "luciana.torres@email.com",
+    "endereco": "Rua dos Ipês, 753 - Vila São José",
+    "data_nascimento": "14/07/1989"
+  }
+]
