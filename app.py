@@ -3,7 +3,7 @@ from flask import send_from_directory
 import os
 
 app = criar_app()
-app.secret_key = 'chave-super-secreta-123'  # Troque por uma chave forte em produção
+app.secret_key = os.environ.get('SECRET_KEY', 'default-dev-key')
 
 @app.route('/')
 def pagina_inicial():

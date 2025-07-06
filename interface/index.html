@@ -30,7 +30,7 @@
                 <label for="login-senha">Senha</label>
                 <div class="senha-container">
                     <input type="password" id="login-senha" required>
-                    <button type="button" class="olho-senha" tabindex="-1" onclick="toggleSenha('login-senha', this)">&#128065;</button>
+                    <button type="button" class="olho-senha" tabindex="-1" aria-label="Mostrar senha" onclick="toggleSenha('login-senha', this)">&#128065;</button>
                 </div>
                 <button type="submit">Entrar</button>
                 <p>Não tem conta? <a href="#" id="link-para-registro">Registrar</a></p>
@@ -44,12 +44,12 @@
                 <label for="registro-senha">Senha</label>
                 <div class="senha-container">
                     <input type="password" id="registro-senha" required>
-                    <button type="button" class="olho-senha" tabindex="-1" onclick="toggleSenha('registro-senha', this)">&#128065;</button>
+                    <button type="button" class="olho-senha" tabindex="-1" aria-label="Mostrar senha" onclick="toggleSenha('registro-senha', this)">&#128065;</button>
                 </div>
                 <label for="registro-confirmar-senha">Confirmar Senha</label>
                 <div class="senha-container">
                     <input type="password" id="registro-confirmar-senha" required>
-                    <button type="button" class="olho-senha" tabindex="-1" onclick="toggleSenha('registro-confirmar-senha', this)">&#128065;</button>
+                    <button type="button" class="olho-senha" tabindex="-1" aria-label="Mostrar senha" onclick="toggleSenha('registro-confirmar-senha', this)">&#128065;</button>
                 </div>
                 <label for="registro-nome">Nome completo</label>
                 <input type="text" id="registro-nome" required>

@@ -235,8 +235,8 @@ function usarVoucher(codigo) {
         mostrarPopup('Você precisa estar logado para usar vouchers!', 'erro');
         return;
     }
-    
-    fetch('/api/vouchers/usar', {
+
+    fetch(`/api/vouchers/usar/${id_voucher}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -248,7 +248,7 @@ function usarVoucher(codigo) {
     .then(data => {
         if (data.sucesso) {
             mostrarPopup(data.mensagem || 'Voucher usado com sucesso!');
-            carregarVouchers(); // Recarrega a lista para atualizar o status
+            carregarVouchers(); 
         } else {
             mostrarPopup(data.erro || 'Erro ao usar voucher!', 'erro');
         }

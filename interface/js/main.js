@@ -19,18 +19,21 @@ function inicializarApp() {
     window.carregarClientes = carregarClientes;
     window.mostrarTela = mostrarTela;
     window.atualizarVisibilidadeClientes = atualizarVisibilidadeClientes;
-    window.mostrarPopup = mostrarPopup;    window.exibirBotaoAdicionarVoucher = exibirBotaoAdicionarVoucher;
-    window.exibirBotaoAdicionarCliente = exibirBotaoAdicionarCliente;    window.abrirModalRemover = abrirModalRemover;    window.mostrarResumoPagamento = mostrarResumoPagamento;
+    window.mostrarPopup = mostrarPopup;    
+    window.exibirBotaoAdicionarVoucher = exibirBotaoAdicionarVoucher;
+    window.exibirBotaoAdicionarCliente = exibirBotaoAdicionarCliente;
+    window.abrirModalRemover = abrirModalRemover;
+    window.mostrarResumoPagamento = mostrarResumoPagamento;
     window.mostrarComprovanteAgendamento = mostrarComprovanteAgendamento;
     window.abrirModalEditarAgendamento = abrirModalEditarAgendamento;
     window.usarVoucher = usarVoucher;
     window.abrirModalAdicionarVoucher = abrirModalAdicionarVoucher;
     window.abrirModalEditarVoucher = abrirModalEditarVoucher;
     window.abrirModalAdicionarCliente = abrirModalAdicionarCliente;
-    window.abrirModalEditarCliente = abrirModalEditarCliente;      // Inicializa módulos
+    window.abrirModalEditarCliente = abrirModalEditarCliente;   
     inicializarNavegacao();
     inicializarUI();
-    inicializarAgendamento(); // Inicializa funcionalidades de agendamento
+    inicializarAgendamento();
     
     // Aguarda um pouco para garantir que o DOM esteja totalmente carregado
     setTimeout(() => {
