@@ -72,6 +72,11 @@ class BarbeariaApp:
         # Iniciar com tela de login
         self.login_manager.show_login(self.on_login_success)
     
+    def clear_screen(self):
+        """Limpa completamente a tela"""
+        for widget in self.root.winfo_children():
+            widget.destroy()
+    
     def on_login_success(self, usuario):
         """
         Callback executado após login bem-sucedido.
@@ -84,9 +89,29 @@ class BarbeariaApp:
         Args:
             usuario (str): Nome do usuário que fez login
         """
-        # Ocultar tela de login
-        self.login_manager.hide_login()
+        # Limpar tela completamente
+        self.clear_screen()
+        
+        # Limpar janela principal anterior se existir
+        if self.main_window:
+            self.main_window.destroy()
         
         # Criar e exibir janela principal
         self.main_window = MainWindow(self.root, usuario)
+        self.main_window.set_logout_callback(self.on_logout)  # Definir callback de logout
         self.main_window.show()
+    
+    def on_logout(self):
+        """
+        Callback executado quando usuário faz logout.
+        Centraliza o controle de logout na BarbeariaApp.
+        """
+        # Limpar tela completamente
+        self.clear_screen()
+        
+        # Limpar referência da janela principal
+        self.main_window = None
+        
+        # Criar nova instância do login manager e mostrar login
+        self.login_manager = LoginManager(self.root)
+        self.login_manager.show_login(self.on_login_success)

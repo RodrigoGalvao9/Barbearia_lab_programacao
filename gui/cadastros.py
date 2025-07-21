@@ -212,16 +212,24 @@ class CadastroCorteWindow:
         tk.Label(main_frame, text="Tipo de Corte*:", font=("Arial", 11, "bold"), 
                 bg="#ecf0f1", fg="#2c3e50").pack(anchor="w", pady=(0,5))
         
-        self.combo_tipo = ttk.Combobox(main_frame, font=("Arial", 11), width=47, state="readonly")
+        self.combo_tipo = ttk.Combobox(main_frame, font=("Arial", 11), width=47)
         self.combo_tipo['values'] = TIPOS_CORTE
         self.combo_tipo.pack(pady=(0,15))
+        
+        # Label de ajuda para o tipo de corte
+        tk.Label(main_frame, text="💡 Dica: Você pode selecionar da lista ou digitar um novo tipo", 
+                font=("Arial", 9), bg="#ecf0f1", fg="#7f8c8d").pack(anchor="w", pady=(0,10))
         
         # Preço
         tk.Label(main_frame, text="Preço (R$):", font=("Arial", 11, "bold"), 
                 bg="#ecf0f1", fg="#34495e").pack(anchor="w", pady=(0,5))
         
         self.entry_preco = tk.Entry(main_frame, font=("Arial", 11), width=50, relief="solid", bd=1)
-        self.entry_preco.pack(pady=(0,15))
+        self.entry_preco.pack(pady=(0,5))
+        
+        # Label de ajuda para preço
+        tk.Label(main_frame, text="💡 Exemplo: 35.00 ou 35,50 (deixe vazio se for definir depois)", 
+                font=("Arial", 9), bg="#ecf0f1", fg="#7f8c8d").pack(anchor="w", pady=(0,15))
         
         # Observações
         tk.Label(main_frame, text="Observações:", font=("Arial", 11, "bold"), 
@@ -249,17 +257,19 @@ class CadastroCorteWindow:
         """Valida e salva o corte"""
         from datetime import datetime
         
-        tipo_corte = self.combo_tipo.get()
+        tipo_corte = self.combo_tipo.get().strip()
         preco = self.entry_preco.get().strip()
         observacoes = self.text_obs.get("1.0", "end-1c").strip()
         
         erros = []
         
         if not tipo_corte:
-            erros.append("Selecione o tipo de corte")
+            erros.append("Digite ou selecione o tipo de corte")
+        elif len(tipo_corte) < 2:
+            erros.append("Tipo de corte deve ter pelo menos 2 caracteres")
         
         if preco and not Validador.validar_preco(preco):
-            erros.append("Preço inválido")
+            erros.append("Preço inválido. Use formato: 25.50 ou 25,50")
         
         if erros:
             messagebox.showerror("Erro de Validação", "\n".join(erros))
@@ -268,11 +278,15 @@ class CadastroCorteWindow:
         # Converter preço
         preco_float = 0.0
         if preco:
-            preco_float = float(preco.replace(',', '.'))
+            try:
+                preco_float = float(preco.replace(',', '.'))
+            except ValueError:
+                messagebox.showerror("Erro", "Preço inválido!")
+                return
         
         agora = datetime.now()
         corte_data = {
-            "corte": tipo_corte,
+            "corte": tipo_corte.title(),  # Capitalizar primeira letra
             "preco": preco_float,
             "data_hora": agora.strftime("%d/%m/%Y %H:%M"),
             "observacoes": observacoes

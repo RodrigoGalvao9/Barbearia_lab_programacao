@@ -16,6 +16,11 @@ class MainWindow:
         self.usuario = usuario
         self.data_manager = DataManager()
         self.main_frame = None
+        self.logout_callback = None  # Callback para logout centralizado
+        
+    def set_logout_callback(self, callback):
+        """Define o callback de logout"""
+        self.logout_callback = callback
         
     def show(self):
         """Exibe a janela principal"""
@@ -106,16 +111,22 @@ class MainWindow:
         self.relatorios_tab.atualizar_relatorios()
     
     def logout(self):
-        """Faz logout e volta para tela de login"""
+        """Faz logout utilizando o callback centralizado"""
+        if self.logout_callback:
+            self.logout_callback()
+        else:
+            # Fallback caso não tenha callback definido
+            self.destroy()
+    
+    def destroy(self):
+        """Destrói a janela principal e limpa recursos"""
         if self.main_frame:
             self.main_frame.destroy()
+            self.main_frame = None
         
-        from app.login import LoginManager
-        login_manager = LoginManager(self.root)
-        login_manager.show_login(self.on_login_success)
-    
-    def on_login_success(self, usuario):
-        """Callback para novo login"""
-        from app.main_window import MainWindow
-        main_window = MainWindow(self.root, usuario)
-        main_window.show()
+        # Limpar referências para evitar vazamentos de memória
+        self.clientes_tab = None
+        self.cortes_tab = None
+        self.agendamentos_tab = None
+        self.relatorios_tab = None
+        self.data_manager = None

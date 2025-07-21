@@ -83,6 +83,11 @@ class LoginManager:
         """Exibe a tela de login"""
         self.callback_success = callback_success
         
+        # Se já existe uma tela de login, destruí-la primeiro
+        if self.login_frame:
+            self.login_frame.destroy()
+            self.login_frame = None
+        
         # Frame principal de login
         self.login_frame = tk.Frame(self.root, bg="#34495e")
         self.login_frame.pack(fill="both", expand=True)
