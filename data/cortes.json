@@ -1,0 +1,32 @@
+[
+  {
+    "corte": "Corte Degradê",
+    "preco": "35.00",
+    "data_hora": "15/01/2024 14:30",
+    "observacoes": "Corte degradê baixo"
+  },
+  {
+    "corte": "Combo Corte + Barba",
+    "preco": "50.00",
+    "data_hora": "18/01/2024 16:00",
+    "observacoes": "Combo completo"
+  },
+  {
+    "corte": "Sobrancelha",
+    "preco": "20.00",
+    "data_hora": "20/01/2024 10:15",
+    "observacoes": "Design natural"
+  },
+  {
+    "corte": "Corte Social",
+    "preco": "30.00",
+    "data_hora": "22/01/2024 09:00",
+    "observacoes": "Corte para trabalho, bem conservador"
+  },
+  {
+    "corte": "Barba Completa",
+    "preco": "25.00",
+    "data_hora": "25/01/2024 15:45",
+    "observacoes": "Serviço de barba completa"
+  }
+]

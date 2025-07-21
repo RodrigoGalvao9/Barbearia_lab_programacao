@@ -171,18 +171,14 @@ class CadastroClienteWindow:
 
 
 class CadastroCorteWindow:
-    def __init__(self, parent, clientes, callback_sucesso=None):
+    def __init__(self, parent, callback_sucesso=None, corte_editando=None):
         self.parent = parent
-        self.clientes = clientes
         self.callback_sucesso = callback_sucesso
-        
-        if not clientes:
-            messagebox.showwarning("Aviso", "Cadastre clientes primeiro!")
-            return
+        self.corte_editando = corte_editando
         
         self.janela = tk.Toplevel(parent)
-        self.janela.title("Registrar Corte")
-        self.janela.geometry("500x550")
+        self.janela.title("Registrar Corte" if not corte_editando else "Editar Corte")
+        self.janela.geometry("500x450")
         self.janela.configure(bg="#ecf0f1")
         self.janela.resizable(False, False)
         
@@ -190,31 +186,28 @@ class CadastroCorteWindow:
         self.janela.grab_set()
         
         self.criar_interface()
+        
+        # Se está editando, preencher campos
+        if corte_editando:
+            self.preencher_campos()
     
     def criar_interface(self):
         """Cria a interface de registro de corte"""
-        from utils.validations import TIPOS_CORTE, BARBEIROS
+        from utils.validations import TIPOS_CORTE
         
         # Título
         titulo_frame = tk.Frame(self.janela, bg="#27ae60", height=60)
         titulo_frame.pack(fill="x")
         titulo_frame.pack_propagate(False)
         
-        tk.Label(titulo_frame, text="REGISTRAR CORTE", 
+        titulo_text = "REGISTRAR CORTE" if not self.corte_editando else "EDITAR CORTE"
+        tk.Label(titulo_frame, text=titulo_text, 
                 font=("Arial", 16, "bold"), bg="#27ae60", fg="white").pack(pady=15)
         
         # Frame principal
         main_frame = tk.Frame(self.janela, bg="#ecf0f1")
         main_frame.pack(fill="both", expand=True, padx=20, pady=20)
-        
-        # Cliente
-        tk.Label(main_frame, text="Cliente*:", font=("Arial", 11, "bold"), 
-                bg="#ecf0f1", fg="#2c3e50").pack(anchor="w", pady=(0,5))
-        
-        self.combo_cliente = ttk.Combobox(main_frame, font=("Arial", 11), width=47, state="readonly")
-        self.combo_cliente['values'] = [cliente['nome'] for cliente in self.clientes]
-        self.combo_cliente.pack(pady=(0,15))
-        
+
         # Tipo de corte
         tk.Label(main_frame, text="Tipo de Corte*:", font=("Arial", 11, "bold"), 
                 bg="#ecf0f1", fg="#2c3e50").pack(anchor="w", pady=(0,5))
@@ -222,14 +215,6 @@ class CadastroCorteWindow:
         self.combo_tipo = ttk.Combobox(main_frame, font=("Arial", 11), width=47, state="readonly")
         self.combo_tipo['values'] = TIPOS_CORTE
         self.combo_tipo.pack(pady=(0,15))
-        
-        # Barbeiro
-        tk.Label(main_frame, text="Barbeiro:", font=("Arial", 11, "bold"), 
-                bg="#ecf0f1", fg="#34495e").pack(anchor="w", pady=(0,5))
-        
-        self.combo_barbeiro = ttk.Combobox(main_frame, font=("Arial", 11), width=47, state="readonly")
-        self.combo_barbeiro['values'] = BARBEIROS
-        self.combo_barbeiro.pack(pady=(0,15))
         
         # Preço
         tk.Label(main_frame, text="Preço (R$):", font=("Arial", 11, "bold"), 
@@ -264,16 +249,11 @@ class CadastroCorteWindow:
         """Valida e salva o corte"""
         from datetime import datetime
         
-        cliente = self.combo_cliente.get()
         tipo_corte = self.combo_tipo.get()
-        barbeiro = self.combo_barbeiro.get()
         preco = self.entry_preco.get().strip()
         observacoes = self.text_obs.get("1.0", "end-1c").strip()
         
         erros = []
-        
-        if not cliente:
-            erros.append("Selecione um cliente")
         
         if not tipo_corte:
             erros.append("Selecione o tipo de corte")
@@ -292,10 +272,8 @@ class CadastroCorteWindow:
         
         agora = datetime.now()
         corte_data = {
-            "cliente": cliente,
             "corte": tipo_corte,
             "preco": preco_float,
-            "barbeiro": barbeiro,
             "data_hora": agora.strftime("%d/%m/%Y %H:%M"),
             "observacoes": observacoes
         }
@@ -303,30 +281,58 @@ class CadastroCorteWindow:
         if self.callback_sucesso:
             self.callback_sucesso(corte_data)
         
-        messagebox.showinfo("Sucesso", "Corte registrado com sucesso!")
+        texto_sucesso = "Corte registrado com sucesso!" if not self.corte_editando else "Corte editado com sucesso!"
+        messagebox.showinfo("Sucesso", texto_sucesso)
         self.janela.destroy()
+    
+    def preencher_campos(self):
+        """Preenche os campos com os dados do corte sendo editado"""
+        if not self.corte_editando:
+            return
+        
+        # Preencher tipo de corte
+        self.combo_tipo.set(self.corte_editando.get('corte', ''))
+        
+        # Preencher preço
+        preco = self.corte_editando.get('preco', 0)
+        try:
+            preco_float = float(str(preco).replace(',', '.'))
+            if preco_float > 0:
+                self.entry_preco.insert(0, str(preco))
+        except (ValueError, TypeError):
+            pass
+        
+        # Preencher observações
+        obs = self.corte_editando.get('observacoes', '')
+        if obs:
+            self.text_obs.insert("1.0", obs)
 
 
 class CadastroAgendamentoWindow:
-    def __init__(self, parent, clientes, callback_sucesso=None):
+    def __init__(self, parent, clientes, callback_sucesso=None, agendamento_editando=None):
         self.parent = parent
         self.clientes = clientes
         self.callback_sucesso = callback_sucesso
+        self.agendamento_editando = agendamento_editando
         
         if not clientes:
             messagebox.showwarning("Aviso", "Cadastre clientes primeiro!")
             return
         
         self.janela = tk.Toplevel(parent)
-        self.janela.title("Novo Agendamento")
-        self.janela.geometry("500x600")
+        self.janela.title("Novo Agendamento" if not agendamento_editando else "Editar Agendamento")
+        self.janela.geometry("500x650")  # Aumentei de 600 para 650
         self.janela.configure(bg="#ecf0f1")
-        self.janela.resizable(False, False)
+        self.janela.resizable(True, True)  # Permitir redimensionar
         
         self.janela.transient(parent)
         self.janela.grab_set()
         
         self.criar_interface()
+        
+        # Se está editando, preencher campos
+        if agendamento_editando:
+            self.preencher_campos()
     
     def criar_interface(self):
         """Cria a interface de agendamento"""
@@ -337,67 +343,68 @@ class CadastroAgendamentoWindow:
         titulo_frame.pack(fill="x")
         titulo_frame.pack_propagate(False)
         
-        tk.Label(titulo_frame, text="NOVO AGENDAMENTO", 
+        titulo_text = "NOVO AGENDAMENTO" if not self.agendamento_editando else "EDITAR AGENDAMENTO"
+        tk.Label(titulo_frame, text=titulo_text, 
                 font=("Arial", 16, "bold"), bg="#f39c12", fg="white").pack(pady=15)
         
         # Frame principal
         main_frame = tk.Frame(self.janela, bg="#ecf0f1")
-        main_frame.pack(fill="both", expand=True, padx=20, pady=20)
+        main_frame.pack(fill="both", expand=True, padx=15, pady=10)
         
         # Cliente
         tk.Label(main_frame, text="Cliente*:", font=("Arial", 11, "bold"), 
-                bg="#ecf0f1", fg="#2c3e50").pack(anchor="w", pady=(0,5))
+                bg="#ecf0f1", fg="#2c3e50").pack(anchor="w", pady=(0,3))
         
         self.combo_cliente = ttk.Combobox(main_frame, font=("Arial", 11), width=47, state="readonly")
         self.combo_cliente['values'] = [cliente['nome'] for cliente in self.clientes]
-        self.combo_cliente.pack(pady=(0,15))
+        self.combo_cliente.pack(pady=(0,10))
         
         # Data
         tk.Label(main_frame, text="Data (DD/MM/AAAA)*:", font=("Arial", 11, "bold"), 
-                bg="#ecf0f1", fg="#2c3e50").pack(anchor="w", pady=(0,5))
+                bg="#ecf0f1", fg="#2c3e50").pack(anchor="w", pady=(0,3))
         
         self.entry_data = tk.Entry(main_frame, font=("Arial", 11), width=50, relief="solid", bd=1)
-        self.entry_data.pack(pady=(0,15))
+        self.entry_data.pack(pady=(0,10))
         
         # Hora
         tk.Label(main_frame, text="Hora (HH:MM)*:", font=("Arial", 11, "bold"), 
-                bg="#ecf0f1", fg="#2c3e50").pack(anchor="w", pady=(0,5))
+                bg="#ecf0f1", fg="#2c3e50").pack(anchor="w", pady=(0,3))
         
         self.entry_hora = tk.Entry(main_frame, font=("Arial", 11), width=50, relief="solid", bd=1)
-        self.entry_hora.pack(pady=(0,15))
+        self.entry_hora.pack(pady=(0,10))
         
         # Serviço
         tk.Label(main_frame, text="Serviço:", font=("Arial", 11, "bold"), 
-                bg="#ecf0f1", fg="#34495e").pack(anchor="w", pady=(0,5))
+                bg="#ecf0f1", fg="#34495e").pack(anchor="w", pady=(0,3))
         
         self.combo_servico = ttk.Combobox(main_frame, font=("Arial", 11), width=47, state="readonly")
         self.combo_servico['values'] = TIPOS_CORTE
-        self.combo_servico.pack(pady=(0,15))
+        self.combo_servico.pack(pady=(0,10))
         
         # Barbeiro
         tk.Label(main_frame, text="Barbeiro:", font=("Arial", 11, "bold"), 
-                bg="#ecf0f1", fg="#34495e").pack(anchor="w", pady=(0,5))
+                bg="#ecf0f1", fg="#34495e").pack(anchor="w", pady=(0,3))
         
         self.combo_barbeiro = ttk.Combobox(main_frame, font=("Arial", 11), width=47, state="readonly")
         self.combo_barbeiro['values'] = BARBEIROS
-        self.combo_barbeiro.pack(pady=(0,15))
+        self.combo_barbeiro.pack(pady=(0,10))
         
         # Status
         tk.Label(main_frame, text="Status:", font=("Arial", 11, "bold"), 
-                bg="#ecf0f1", fg="#34495e").pack(anchor="w", pady=(0,5))
+                bg="#ecf0f1", fg="#34495e").pack(anchor="w", pady=(0,3))
         
         self.combo_status = ttk.Combobox(main_frame, font=("Arial", 11), width=47, state="readonly")
         self.combo_status['values'] = STATUS_AGENDAMENTO
         self.combo_status.set("Agendado")  # Valor padrão
-        self.combo_status.pack(pady=(0,15))
+        self.combo_status.pack(pady=(0,10))
         
         # Observações
         tk.Label(main_frame, text="Observações:", font=("Arial", 11, "bold"), 
-                bg="#ecf0f1", fg="#34495e").pack(anchor="w", pady=(0,5))
+                bg="#ecf0f1", fg="#34495e").pack(anchor="w", pady=(0,3))
         
-        self.text_obs = tk.Text(main_frame, font=("Arial", 11), width=50, height=3, 
+        self.text_obs = tk.Text(main_frame, font=("Arial", 10), width=50, height=2, 
                                relief="solid", bd=1, wrap="word")
-        self.text_obs.pack(pady=(0,20))
+        self.text_obs.pack(pady=(0,15))
         
         # Botões
         btn_frame = tk.Frame(main_frame, bg="#ecf0f1")
@@ -455,5 +462,42 @@ class CadastroAgendamentoWindow:
         if self.callback_sucesso:
             self.callback_sucesso(agendamento_data)
         
-        messagebox.showinfo("Sucesso", "Agendamento criado com sucesso!")
+        texto_sucesso = "Agendamento criado com sucesso!" if not self.agendamento_editando else "Agendamento editado com sucesso!"
+        messagebox.showinfo("Sucesso", texto_sucesso)
         self.janela.destroy()
+    
+    def preencher_campos(self):
+        """Preenche os campos com os dados do agendamento sendo editado"""
+        if not self.agendamento_editando:
+            return
+        
+        # Preencher cliente
+        cliente_nome = self.agendamento_editando.get('cliente', '')
+        for i, cliente in enumerate(self.clientes):
+            if cliente['nome'] == cliente_nome:
+                self.combo_cliente.set(cliente_nome)
+                break
+        
+        # Preencher data
+        data = self.agendamento_editando.get('data', '')
+        if data:
+            self.entry_data.insert(0, data)
+        
+        # Preencher hora
+        hora = self.agendamento_editando.get('hora', '')
+        if hora:
+            self.entry_hora.insert(0, hora)
+        
+        # Preencher serviço
+        self.combo_servico.set(self.agendamento_editando.get('servico', ''))
+        
+        # Preencher barbeiro
+        self.combo_barbeiro.set(self.agendamento_editando.get('barbeiro', ''))
+        
+        # Preencher status
+        self.combo_status.set(self.agendamento_editando.get('status', 'Agendado'))
+        
+        # Preencher observações
+        obs = self.agendamento_editando.get('observacoes', '')
+        if obs:
+            self.text_obs.insert("1.0", obs)

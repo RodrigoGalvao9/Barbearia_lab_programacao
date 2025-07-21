@@ -1,0 +1,42 @@
+[
+  {
+    "nome": "João Silva",
+    "telefone": "(11) 98765-4321",
+    "email": "joao.silva@email.com",
+    "endereco": "Rua das Flores, 123 - São Paulo/SP",
+    "data_nascimento": "15/05/1985",
+    "data_cadastro": "01/01/2024"
+  },
+  {
+    "nome": "Maria Santos",
+    "telefone": "(11) 87654-3210",
+    "email": "maria.santos@email.com",
+    "endereco": "Av. Central, 456 - São Paulo/SP",
+    "data_nascimento": "22/08/1990",
+    "data_cadastro": "05/01/2024"
+  },
+  {
+    "nome": "Pedro Oliveira",
+    "telefone": "(11) 76543-2109",
+    "email": "pedro.oliveira@email.com",
+    "endereco": "Rua do Comércio, 789 - São Paulo/SP",
+    "data_nascimento": "10/12/1988",
+    "data_cadastro": "10/01/2024"
+  },
+  {
+    "nome": "Ana Costa",
+    "telefone": "(11) 65432-1098",
+    "email": "ana.costa@email.com",
+    "endereco": "Alameda dos Jardins, 321 - São Paulo/SP",
+    "data_nascimento": "03/07/1992",
+    "data_cadastro": "15/01/2024"
+  },
+  {
+    "nome": "Carlos Ferreira",
+    "telefone": "(11) 54321-0987",
+    "email": "carlos.ferreira@email.com",
+    "endereco": "Rua da Paz, 654 - São Paulo/SP",
+    "data_nascimento": "28/11/1983",
+    "data_cadastro": "20/01/2024"
+  }
+]

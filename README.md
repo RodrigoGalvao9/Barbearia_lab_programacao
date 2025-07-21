@@ -1,52 +1,74 @@
 
-# 🪒 Sistema de Barbearia
+# 🪒 Sistema de Barbearia v2.0 - Modularizado
 
 Sistema completo de gerenciamento para barbearias desenvolvido em Python com interface gráfica Tkinter.
 
-## 📋 Funcionalidades
+## 📋 Funcionalidades Principais
 
-- **👥 Gestão de Clientes**: Cadastro completo com dados pessoais
-- **✂️ Registro de Cortes**: Controle de serviços realizados com preços
-- **📅 Agendamentos**: Sistema de marcação de horários
-- **📊 Relatórios**: Estatísticas e resumos do negócio
-- **🔍 Busca**: Filtros em tempo real em todas as listas
-- **💾 Persistência**: Dados salvos em arquivos JSON
+### 🔐 **Sistema de Autenticação**
+- Login de usuários existentes
+- Registro de novos usuários com validações
+- Persistência segura de credenciais
 
+### 👥 **Gestão de Clientes**
+- Cadastro completo com dados pessoais e contato
+- Validação de telefone, email e dados obrigatórios
+- Edição e remoção de clientes
+- Busca e filtros em tempo real
 
-## 📁 Estrutura do Projeto
+### ✂️ **Registro de Cortes** 
+- Cadastro simplificado: tipo, preço, observações
+- Histórico completo de serviços
+- Edição de preços e detalhes
+- Cálculo automático de receitas
+
+### 📅 **Sistema de Agendamentos**
+- Agendamento completo com cliente, data, hora, serviço
+- **Controle de status**: Agendado → Confirmado → Em Andamento → Realizado
+- Cancelamento e edição de agendamentos
+- Visualização organizada por status
+
+### 📊 **Relatórios Detalhados e Visuais**
+- **Cards coloridos** com estatísticas principais
+- **Seção detalhada** com análises específicas:
+  - � Clientes: Total e lista dos mais recentes
+  - ✂️ Cortes: Receita, médias, maiores/menores valores, tipos populares
+  - � Agendamentos: Status com cores, próximos agendamentos
+- Interface **centralizada e profissional**
+- Atualização em tempo real
+
+## 📁 Estrutura Modular do Projeto
 
 ```
 Barbearia_lab_programacao/
-├── models/
+├── main.py                     # Ponto de entrada principal
+├── app/                        # Módulos da aplicação
+│   ├── main_app.py            # Aplicação principal
+│   ├── login.py               # Sistema de login/registro
+│   ├── main_window.py         # Janela principal com abas
+│   ├── data_manager.py        # Gerenciamento de dados
+│   └── tabs/                  # Abas especializadas
+│       ├── clientes_tab.py    # Aba de clientes
+│       ├── cortes_tab.py      # Aba de cortes (sem barbeiro)
+│       ├── agendamentos_tab.py # Aba de agendamentos
+│       └── relatorios_tab.py  # Aba de relatórios visuais
+├── models/                     # Modelos de dados
 │   ├── __init__.py
-│   └── models.py          # Classes de dados (Cliente, Corte, Agendamento)
-├── utils/
+│   └── models.py              # Classes Cliente, Corte, Agendamento
+├── gui/                        # Interfaces de cadastro
 │   ├── __init__.py
-│   └── validations.py     # Validações e formatações
-├── gui/
+│   └── cadastros.py           # Janelas de formulários
+├── utils/                      # Utilitários do sistema
 │   ├── __init__.py
-│   └── cadastros.py       # Janelas de cadastro
-├── barbearia.py           # Aplicação principal
-├── usuarios.json          # Dados de usuários
-├── clientes.json          # Dados de clientes
-├── cortes.json           # Histórico de cortes
-└── agendamentos.json     # Agendamentos
+│   ├── validations.py         # Validações e constantes
+│   ├── file_manager.py        # Gerenciamento de arquivos
+│   └── helpers.py             # Funções auxiliares
+└── data/                       # Dados persistidos (JSON)
+    ├── usuarios.json          # Usuários do sistema
+    ├── clientes.json          # Dados de clientes
+    ├── cortes.json           # Histórico de cortes
+    └── agendamentos.json     # Agendamentos
 ```
-
-## 📊 Dados de Exemplo Incluídos
-
-O sistema já vem com dados de exemplo carregados:
-- **8 clientes** cadastrados
-- **7 cortes** realizados
-- **8 agendamentos** futuros
-- **3 usuários** do sistema
-
-## 🛠️ Tecnologias
-
-- **Python 3.13**
-- **Tkinter** (Interface gráfica)
-- **JSON** (Persistência de dados)
-- **Modularização** (Organização do código)
 
 ## � Requisitos do Sistema
 
@@ -62,39 +84,6 @@ O sistema já vem com dados de exemplo carregados:
 ```bash
 python barbearia.py
 ```
-
-4. Faça login com um dos usuários disponíveis
-
-## 🔐 Usuários de Acesso
-
-| Usuário | Senha | Perfil |
-|---------|-------|--------|
-| admin | 1234 | Administrador |
-| rodrigo | senha123 | Operador |
-| maria | barbearia2025 | Operador |
-
-## 💡 Funcionalidades Principais
-
-### 👥 Gestão de Clientes
-- Cadastro com dados completos (nome, telefone, email, endereço, data nascimento)
-- Busca e filtros em tempo real
-- Validação de dados (telefone, email, etc.)
-
-### ✂️ Controle de Cortes
-- Registro de serviços realizados
-- Controle de preços e barbeiros
-- Histórico completo com observações
-
-### 📅 Sistema de Agendamentos
-- Marcação de horários futuros
-- Controle de status (Agendado, Confirmado, Realizado, Cancelado)
-- Vinculação com clientes e barbeiros
-
-### 📊 Relatórios e Estatísticas
-- Total de clientes cadastrados
-- Quantidade de cortes realizados
-- Receita total calculada automaticamente
-- Agendamentos pendentes
 
 ## 🎨 Interface
 
