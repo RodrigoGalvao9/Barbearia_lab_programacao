@@ -146,12 +146,11 @@ class Corte:
         )
 
 class Agendamento:
-    def __init__(self, cliente, data, hora, servico="", barbeiro="", status="Agendado", observacoes=""):
+    def __init__(self, cliente, data, hora, servico="", status="Agendado", observacoes=""):
         self.cliente = cliente
         self.data = data
         self.hora = hora
         self.servico = servico
-        self.barbeiro = barbeiro
         self.status = status
         self.observacoes = observacoes
     
@@ -161,7 +160,6 @@ class Agendamento:
             "data": self.data,
             "hora": self.hora,
             "servico": self.servico,
-            "barbeiro": self.barbeiro,
             "status": self.status,
             "observacoes": self.observacoes
         }
@@ -173,7 +171,6 @@ class Agendamento:
             data.get("data", ""),
             data.get("hora", ""),
             data.get("servico", ""),
-            data.get("barbeiro", ""),
             data.get("status", "Agendado"),
             data.get("observacoes", "")
         )

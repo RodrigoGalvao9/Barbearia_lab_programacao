@@ -15,7 +15,6 @@ Inclui validações para:
 
 E constantes para:
 - Tipos de corte
-- Lista de barbeiros
 - Status de agendamentos
 
 Autor: Sistema Barbearia v2.0
@@ -336,16 +335,6 @@ TIPOS_CORTE = [
     "Combo Corte + Barba"   # Pacote completo com desconto
 ]
 
-# Lista dos barbeiros disponíveis no estabelecimento
-# Nomes fictícios para demonstração do sistema
-BARBEIROS = [
-    "João Silva",          # Barbeiro especialista em degradê
-    "Pedro Santos",        # Especialista em cortes sociais
-    "Carlos Oliveira",     # Expert em barbas
-    "Rafael Costa",        # Barbeiro experiente
-    "Lucas Ferreira"       # Barbeiro júnior
-]
-
 # Status possíveis para agendamentos
 # Controla o fluxo de trabalho da barbearia
 STATUS_AGENDAMENTO = [
@@ -396,14 +385,12 @@ CORTES_EXEMPLO = [
     {
         "corte": "Corte Degradê",
         "preco": 35.0,
-        "barbeiro": "João Silva",
         "data_hora": "15/01/2024 14:30",
         "observacoes": "Corte degradê baixo"
     },
     {
         "corte": "Combo Corte + Barba",
         "preco": 50.0,
-        "barbeiro": "Carlos Oliveira",
         "data_hora": "18/01/2024 16:00",
         "observacoes": "Combo completo"
     }
@@ -416,7 +403,6 @@ AGENDAMENTOS_EXEMPLO = [
         "data": "25/01/2024",
         "hora": "15:00",
         "servico": "Sobrancelha",
-        "barbeiro": "Rafael Costa",
         "status": "Agendado",
         "observacoes": "Cliente prefere design natural"
     },
@@ -425,7 +411,6 @@ AGENDAMENTOS_EXEMPLO = [
         "data": "26/01/2024", 
         "hora": "10:30",
         "servico": "Corte Social",
-        "barbeiro": "Pedro Santos",
         "status": "Confirmado",
         "observacoes": "Reunião importante, corte conservador"
     }

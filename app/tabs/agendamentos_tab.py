@@ -54,7 +54,7 @@ class AgendamentosTab:
                  bg="#95a5a6", fg="white", font=("Arial", 12, "bold"), cursor="hand2").pack(side="right", padx=5)
         
         # Treeview
-        columns = ("Cliente", "Data", "Hora", "Serviço", "Barbeiro", "Status")
+        columns = ("Cliente", "Data", "Hora", "Serviço", "Status")
         self.tree = ttk.Treeview(self.frame, columns=columns, show="headings", height=18)
         
         # Configurar colunas
@@ -80,7 +80,6 @@ class AgendamentosTab:
                 agendamento.get("data", ""),
                 agendamento.get("hora", ""),
                 agendamento.get("servico", ""),
-                agendamento.get("barbeiro", ""),
                 agendamento.get("status", "")
             ))
     
@@ -149,7 +148,6 @@ class AgendamentosTab:
         corte_data = {
             "corte": values[3],  # serviço
             "preco": 0.0,  # será preenchido depois
-            "barbeiro": values[4],  # barbeiro
             "data_hora": datetime.now().strftime("%d/%m/%Y %H:%M"),
             "observacoes": f"Gerado automaticamente do agendamento de {values[1]} {values[2]}"
         }

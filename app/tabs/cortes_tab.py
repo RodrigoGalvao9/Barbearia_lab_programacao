@@ -52,18 +52,16 @@ class CortesTab:
         self.entry_busca.bind("<KeyRelease>", self.filtrar_cortes)
         
         # Treeview
-        columns = ("Tipo", "Preço", "Barbeiro", "Data/Hora")
+        columns = ("Tipo", "Preço", "Data/Hora")
         self.tree = ttk.Treeview(self.frame, columns=columns, show="headings", height=18)
         
         # Configurar colunas
         self.tree.heading("Tipo", text="✂️ Tipo")
         self.tree.heading("Preço", text="💰 Preço")
-        self.tree.heading("Barbeiro", text="👨‍💼 Barbeiro")
         self.tree.heading("Data/Hora", text="📅 Data/Hora")
         
         self.tree.column("Tipo", width=250)
         self.tree.column("Preço", width=120)
-        self.tree.column("Barbeiro", width=150)
         self.tree.column("Data/Hora", width=150)
         
         # Scrollbar
@@ -93,7 +91,6 @@ class CortesTab:
             self.tree.insert("", "end", values=(
                 corte.get("corte", ""),
                 preco_formatado,
-                corte.get("barbeiro", ""),
                 corte.get("data_hora", "")
             ))
     
@@ -104,8 +101,7 @@ class CortesTab:
             self.tree.delete(item)
         
         for corte in self.data_manager.get_cortes():
-            if (termo in corte.get("corte", "").lower() or
-                termo in corte.get("barbeiro", "").lower()):
+            if termo in corte.get("corte", "").lower():
                 
                 preco = corte.get("preco", 0)
                 preco_formatado = Formatador.formatar_preco(preco) if preco else "R$ 0,00"
@@ -113,7 +109,6 @@ class CortesTab:
                 self.tree.insert("", "end", values=(
                     corte.get("corte", ""),
                     preco_formatado,
-                    corte.get("barbeiro", ""),
                     corte.get("data_hora", "")
                 ))
     
@@ -132,7 +127,7 @@ class CortesTab:
         item = selected[0]
         values = self.tree.item(item, 'values')
         tipo_corte = values[0] 
-        data_hora = values[3] if len(values) > 3 else ""
+        data_hora = values[2] if len(values) > 2 else ""
         
         # Encontrar o corte completo na lista
         cortes = self.data_manager.get_cortes()
@@ -157,7 +152,7 @@ class CortesTab:
         item = selected[0]
         values = self.tree.item(item, 'values')
         tipo_corte = values[0]
-        data_hora = values[3] if len(values) > 3 else ""
+        data_hora = values[2] if len(values) > 2 else ""
         
         # Confirmar exclusão
         resposta = messagebox.askyesno("Confirmar Exclusão", 

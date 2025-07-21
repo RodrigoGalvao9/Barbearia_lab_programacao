@@ -336,7 +336,7 @@ class CadastroAgendamentoWindow:
     
     def criar_interface(self):
         """Cria a interface de agendamento"""
-        from utils.validations import TIPOS_CORTE, BARBEIROS, STATUS_AGENDAMENTO
+        from utils.validations import TIPOS_CORTE, STATUS_AGENDAMENTO
         
         # Título
         titulo_frame = tk.Frame(self.janela, bg="#f39c12", height=60)
@@ -381,14 +381,6 @@ class CadastroAgendamentoWindow:
         self.combo_servico['values'] = TIPOS_CORTE
         self.combo_servico.pack(pady=(0,10))
         
-        # Barbeiro
-        tk.Label(main_frame, text="Barbeiro:", font=("Arial", 11, "bold"), 
-                bg="#ecf0f1", fg="#34495e").pack(anchor="w", pady=(0,3))
-        
-        self.combo_barbeiro = ttk.Combobox(main_frame, font=("Arial", 11), width=47, state="readonly")
-        self.combo_barbeiro['values'] = BARBEIROS
-        self.combo_barbeiro.pack(pady=(0,10))
-        
         # Status
         tk.Label(main_frame, text="Status:", font=("Arial", 11, "bold"), 
                 bg="#ecf0f1", fg="#34495e").pack(anchor="w", pady=(0,3))
@@ -426,7 +418,6 @@ class CadastroAgendamentoWindow:
         data = self.entry_data.get().strip()
         hora = self.entry_hora.get().strip()
         servico = self.combo_servico.get()
-        barbeiro = self.combo_barbeiro.get()
         status = self.combo_status.get()
         observacoes = self.text_obs.get("1.0", "end-1c").strip()
         
@@ -454,7 +445,6 @@ class CadastroAgendamentoWindow:
             "data": data,
             "hora": hora,
             "servico": servico,
-            "barbeiro": barbeiro,
             "status": status,
             "observacoes": observacoes
         }
@@ -490,9 +480,6 @@ class CadastroAgendamentoWindow:
         
         # Preencher serviço
         self.combo_servico.set(self.agendamento_editando.get('servico', ''))
-        
-        # Preencher barbeiro
-        self.combo_barbeiro.set(self.agendamento_editando.get('barbeiro', ''))
         
         # Preencher status
         self.combo_status.set(self.agendamento_editando.get('status', 'Agendado'))
